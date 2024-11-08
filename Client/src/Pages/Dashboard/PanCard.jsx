@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Tesseract from 'tesseract.js';
+import './PanCard.css'; // Import the CSS file
 
 const PanCard = () => {
   const [image, setImage] = useState(null);
@@ -66,31 +67,50 @@ const PanCard = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>PAN Card Data Extraction</h1>
+    <div className="pan-card-container">
+      <h1 className="pan-card-header">PAN Card Data Extraction</h1>
 
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="pan-card-upload-input"
+      />
 
       {image && (
-        <div style={{ marginTop: '20px' }}>
-          <img src={image} alt="PAN Card" style={{ width: '300px', height: 'auto' }} />
-          <button onClick={handleExtractText} style={{ marginTop: '20px' }}>
+        <div className="pan-card-image-container">
+          <img
+            src={image}
+            alt="PAN Card"
+            className="pan-card-image"
+          />
+          <button
+            onClick={handleExtractText}
+            className="pan-card-button"
+          >
             Extract PAN Details
           </button>
         </div>
       )}
 
       {details.fullName && (
-        <div style={{ marginTop: '20px', textAlign: 'left' }}>
-          <h3>Extracted Details:</h3>
+        <div className="pan-card-details">
+          <h3 className="pan-card-details-header">Extracted Details:</h3>
           <p><strong>Full Name:</strong> {details.fullName}</p>
           <p><strong>Parent's Name:</strong> {details.parentsName}</p>
           <p><strong>Date of Birth:</strong> {details.dateOfBirth}</p>
           <p><strong>PAN Number:</strong> {details.panNumber}</p>
-          <button onClick={uploadData} style={{ marginTop: '20px' }}>
+          <button
+            onClick={uploadData}
+            className="pan-card-button"
+          >
             Upload PAN Details
           </button>
-          {uploadStatus && <p>{uploadStatus}</p>}
+          {uploadStatus && (
+            <p className={`pan-card-status ${uploadStatus.includes('success') ? 'success' : 'error'}`}>
+              {uploadStatus}
+            </p>
+          )}
         </div>
       )}
     </div>

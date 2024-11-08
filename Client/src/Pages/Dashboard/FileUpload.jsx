@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
+import "./FileUpload.css";  // Import the CSS file
 
 const OCRApp = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -65,7 +66,6 @@ const OCRApp = () => {
 
   const sendDetailsToBackend = async (details) => {
     try {
-      // Corrected URL to point directly to the backend
       const response = await fetch("http://localhost:3000/api/vehicles", {
         method: "POST",
         headers: {
@@ -73,7 +73,7 @@ const OCRApp = () => {
         },
         body: JSON.stringify(details),
       });
-  
+
       if (response.ok) {
         setSaveStatus("Details saved successfully!");
       } else {
@@ -84,36 +84,40 @@ const OCRApp = () => {
       setSaveStatus("An error occurred while saving the details.");
     }
   };
-  
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Image to Text Extractor</h1>
+    <div className="ocr-container">
+      <h1 className="ocr-header">Image to Text Extractor</h1>
       
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
+      <input 
+        type="file" 
+        accept="image/*" 
+        onChange={handleImageUpload} 
+        className="ocr-file-input" 
+      />
       
       {selectedImage && (
         <div>
           <img
             src={selectedImage}
             alt="Selected"
-            style={{ maxWidth: "100%", height: "auto", marginTop: "20px" }}
+            className="ocr-selected-image"
           />
-          <button onClick={extractText} style={{ marginTop: "20px" }}>
+          <button onClick={extractText} className="ocr-button">
             Extract Text
           </button>
         </div>
       )}
 
       {loading && (
-        <div>
+        <div className="ocr-loading">
           <p>Extracting text... {progress.toFixed(2)}%</p>
-          <progress value={progress} max="100" />
+          <progress value={progress} max="100" className="ocr-progress" />
         </div>
       )}
 
       {Object.keys(extractedDetails).length > 0 && (
-        <div>
+        <div className="ocr-details">
           <h2>Extracted Details</h2>
           <ul>
             <li><strong>Registration Number:</strong> {extractedDetails.reg_number}</li>
@@ -132,7 +136,11 @@ const OCRApp = () => {
         </div>
       )}
 
-      {saveStatus && <p>{saveStatus}</p>}
+      {saveStatus && (
+        <p className={`ocr-save-status ${saveStatus.includes("success") ? "success" : "error"}`}>
+          {saveStatus}
+        </p>
+      )}
     </div>
   );
 };
