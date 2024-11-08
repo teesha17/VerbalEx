@@ -28,7 +28,6 @@ router.post('/vehicles', async (req, res) => {
   }
 });
 
-
 router.post("/addpan", async (req, res) => {
   try {
     const panData = new PanCard({
@@ -37,6 +36,8 @@ router.post("/addpan", async (req, res) => {
       dateOfBirth: req.body.dateOfBirth,  
       panNumber: req.body.panNumber
     });
+
+    console.log(panData);
 
     await panData.save();
     res.status(201).json({ message: "PAN card saved successfully" });

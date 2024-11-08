@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Tesseract from 'tesseract.js';
-import './PanCard.css'; // Import the CSS file
+import './PanCard.css';
 
 const PanCard = () => {
   const [image, setImage] = useState(null);
@@ -54,7 +54,8 @@ const PanCard = () => {
         },
         body: JSON.stringify(details)
       });
-
+      console.log(response);
+      console.log(details);
       if (response.ok) {
         setUploadStatus('PAN details uploaded successfully!');
       } else {

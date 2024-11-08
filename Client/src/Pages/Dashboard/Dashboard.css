@@ -1,0 +1,88 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; 
+    padding: 50px;
+    background-color: #f0f2f5;
+    box-sizing: border-box; 
+  }
+  
+  .dashboard-title {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #333;
+    max-width: 800px;
+    text-align: center;
+    line-height: 1.4;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .card {
+    cursor: pointer;
+    width: 350px;
+    height: 200px;
+    padding: 30px; 
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: #f1f1f1;
+    line-height: 1.4;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .aadhar-card {
+    background-color: #ff7f50;
+  }
+  
+  .pan-card {
+    background-color: #4682b4;
+  }
+  
+  .license-card {
+    background-color: #ffa07a; 
+  }
+  
+  .passport-card {
+    background-color: #6a5acd;
+  }
+  
+  .voter-id-card {
+    background-color: #20b2aa;
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+  }
+  
