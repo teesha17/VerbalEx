@@ -4,15 +4,15 @@ const cors = require('cors');
 const app = express();
 const dbConnection = require('./dbConnection/dbConnection.js');
 const authRoutes = require("./routes/authRoutes");
-const uploadRoutes = require('./routes/fileupload.js');
 const vehicleRoutes = require('./routes/vehicleRoute.js')
 
 dotenv.config();
 dbConnection();
 
+app.use(cors());
+
 app.use(express.json());
 app.use("/api/auth", authRoutes);
-app.use("/api", uploadRoutes);
 app.use("/api", vehicleRoutes);
 
 app.listen(process.env.PORT, (err) => {

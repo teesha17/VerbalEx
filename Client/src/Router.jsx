@@ -1,10 +1,11 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import LoginPage from './Pages/LoginPage';
-import RegisterPage from './Pages/RegisterPage';
-import HomePage from './Pages/HomePage';
-import LandingPage from './Pages/LandingPage';
-import PanCard from './Pages/PanCard';
-import OCRApp from './Pages/FileUpload';
+import LoginPage from './Pages/Login/LoginPage';
+import RegisterPage from './Pages/Register/RegisterPage';
+import HomePage from './Pages/Home/HomePage';
+import LandingPage from './Pages/Home/LandingPage';
+import PanCard from './Pages/Dashboard/PanCard';
+import OCRApp from './Pages/Dashboard/FileUpload';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function AppRouter() {
   return (
@@ -15,6 +16,7 @@ function AppRouter() {
       <Route path="/home" element={<HomePage />} />
       <Route path="/pancard" element={<PanCard />} />
       <Route path="/vehicle" element={<OCRApp />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }

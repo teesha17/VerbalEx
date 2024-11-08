@@ -1,9 +1,10 @@
 
-body {
+.login-container {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to right, #ffe5e5, #e5f0ff);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
