@@ -14,7 +14,7 @@ const Login = () => {
         try {
             const res = await axios.post('http://localhost:3000/api/auth/login', { emailOrUsername, password });
             setMessage("Login successful!");
-            localStorage.setItem('authToken', res.data.authToken);
+            localStorage.setItem('token', res.data.token);
             navigate('/dashboard')
         } catch (error) {
             setMessage(error.response?.data.errors || "Login failed, please try again.");

@@ -26,8 +26,8 @@ const PanCard = () => {
     const panMatch = text.match(panRegex);
 
     setDetails({
-      fullName: names[0] || '',
-      parentsName: names[1] || '',
+      fullName: names[0].trim() || '',
+      parentsName: names[1].trim() || '',
       dateOfBirth: dobMatch ? dobMatch[0] : '',
       panNumber: panMatch ? panMatch[0] : ''
     });
@@ -44,13 +44,17 @@ const PanCard = () => {
       extractDetails(text);
     });
   };
+  const token = localStorage.getItem('token');
+  console.log(token)
 
   const uploadData = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/addpan', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
+          'userauthorize': token,
         },
         body: JSON.stringify(details)
       });

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Vehicle = require('../models/vehicle'); 
 const PanCard = require('../models/pancard')
+const verifyUserToken = require("../middleware/userToken")
 
 router.post('/vehicles', async (req, res) => {
   try {
@@ -28,24 +29,33 @@ router.post('/vehicles', async (req, res) => {
   }
 });
 
-router.post("/addpan", async (req, res) => {
+router.post('/addpan', verifyUserToken, async (req, res) => {
   try {
-    const panData = new PanCard({
-      fullName: req.body.fullName,
-      parentsName: req.body.parentsName,
-      dateOfBirth: req.body.dateOfBirth,  
-      panNumber: req.body.panNumber
+    const user = req.userId; // `userId` should be available here
+    console.log(user); // Check if userId is being logged
+    const { panNumber, fullName, parentsName, dateOfBirth } = req.body;
+
+    // Create and save the PAN card
+    const newPanCard = new PanCard({
+      user,
+      panNumber,
+      fullName,
+      parentsName,
+      dateOfBirth,
     });
 
-    console.log(panData);
-
-    await panData.save();
-    res.status(201).json({ message: "PAN card saved successfully" });
+    await newPanCard.save();
+    res.status(201).json({ message: 'PAN card added successfully', panCard: newPanCard });
   } catch (error) {
-    console.error("Error saving PAN card:", error);  
-    res.status(500).json({ error: "Internal Server Error", details: error.message });
+    console.error(error);
+    // Handle duplicate PAN number error
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'PAN number already exists' });
+    }
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 module.exports = router;
