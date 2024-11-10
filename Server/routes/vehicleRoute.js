@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Vehicle = require('../models/vehicle'); 
 const PanCard = require('../models/pancard')
+const frontAadhaar = require('../models/FrontAdhar')
 const verifyUserToken = require("../middleware/userToken")
 
 router.post('/vehicles', async (req, res) => {
@@ -53,6 +54,34 @@ router.post('/addpan', verifyUserToken, async (req, res) => {
       return res.status(400).json({ message: 'PAN number already exists' });
     }
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    console.log(user);
+    const { full_name, dob, gender, aadhaar_number } = req.body;
+    const existingAadhaar = await frontAadhaar.findOne({ aadhaar_number });
+    if (existingAadhaar) {
+      return res.status(400).json({ message: "Aadhaar number already exists" });
+    }
+
+    const newAadhaar = new frontAadhaar({
+      user,
+      full_name,
+      dob,
+      gender,
+      aadhaar_number,
+    });
+
+    // Save to MongoDB
+    await newAadhaar.save();
+    res.status(201).json({ message: 'Aadhaar created successfully', data: newAadhaar });
+  } catch (error) {
+    console.error("Error creating Aadhaar: ", error);
+    res.status(500).json({ message: 'Server error', error });
   }
 });
 
