@@ -4,13 +4,20 @@ const Vehicle = require('../models/vehicle');
 const PanCard = require('../models/pancard')
 const frontAadhaar = require('../models/FrontAdhar')
 const Passport = require("../models/Passport")
-const verifyUserToken = require("../middleware/userToken")
+const verifyUserToken = require("../middleware/userToken");
+
 
 router.post('/vehicles', verifyUserToken, async (req, res) => {
   try { 
+    const user = req.userId;
+    const reg_number = req.body.reg_number;
+    const existing = await Vehicle.findOne({reg_number})
+    if(existing){
+      return res.status(400).json({ message: "vehicle already exists" });
+    }
     const newVehicle = new Vehicle({
-      user: req.userId,
-      reg_number: req.body.reg_number,
+      user: user,
+      reg_number: reg_number,
       chasis_number: req.body.chasis_number,
       name: req.body.name,
       swd: req.body.swd,
@@ -34,11 +41,17 @@ router.post('/vehicles', verifyUserToken, async (req, res) => {
 
 router.post('/addpan', verifyUserToken, async (req, res) => {
   try {
-    const user = req.userId; // `userId` should be available here
-    console.log(user); // Check if userId is being logged
+    const user = req.userId;
+    console.log(user); 
+    const existing = await PanCard.findOne({user});
+    if(existing){
+      return res.status(400).json({ message: "pancard already exists" });
+    }
     const { panNumber, fullName, parentsName, dateOfBirth } = req.body;
-
-    // Create and save the PAN card
+    const existingPan = await PanCard.findOne({panNumber});
+    if(existingPan){
+      return res.status(400).json({ message: "pan number already exists" });
+    }
     const newPanCard = new PanCard({
       user,
       panNumber,
@@ -51,7 +64,6 @@ router.post('/addpan', verifyUserToken, async (req, res) => {
     res.status(201).json({ message: 'PAN card added successfully', panCard: newPanCard });
   } catch (error) {
     console.error(error);
-    // Handle duplicate PAN number error
     if (error.code === 11000) {
       return res.status(400).json({ message: 'PAN number already exists' });
     }

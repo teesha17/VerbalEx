@@ -66,10 +66,13 @@ const OCRApp = () => {
 
   const sendDetailsToBackend = async (details) => {
     try {
+      const token = localStorage.getItem('token')
       const response = await fetch("http://localhost:3000/api/vehicles", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
+          'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
+          'userauthorize': token,
         },
         body: JSON.stringify(details),
       });
