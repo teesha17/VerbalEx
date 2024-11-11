@@ -10,7 +10,7 @@ export default function Dashboard() {
       title: "Aadhar Card Section",
       description: "Parse Aadhar Card data with precision and ease",
       colorClass: "aadhar-card",
-      route: "/aadhar",
+      route: "/adhar",
     },
     {
       title: "PAN Card Section",
@@ -19,22 +19,16 @@ export default function Dashboard() {
       route: "/pancard",
     },
     {
-      title: "Driving License Section",
-      description: "Drive efficiency with license parsing",
-      colorClass: "license-card",
-      route: "/license",
-    },
-    {
       title: "Passport Section",
       description: "Seamless passport information parsing made simple",
       colorClass: "passport-card",
       route: "/passport",
     },
     {
-      title: "Voter ID Section",
-      description: "Voter ID parsing proficiency",
+      title: "Vehicle Registration",
+      description: "Vehicle Registration proficiency",
       colorClass: "voter-id-card",
-      route: "/voter-id",
+      route: "/vehicle",
     },
   ];
 

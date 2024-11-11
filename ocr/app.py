@@ -2,7 +2,7 @@ import streamlit as st
 import pytesseract
 from PIL import Image
 import re
-from aadhaar import front_aadhaar
+from VerbalEx.Server.aadhaar import front_aadhaar
 from birth_certificate import birth_certificate
 from vehicle_registration import extract_vehicle_registration_details
 

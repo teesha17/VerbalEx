@@ -3,11 +3,13 @@ const router = express.Router();
 const Vehicle = require('../models/vehicle'); 
 const PanCard = require('../models/pancard')
 const frontAadhaar = require('../models/FrontAdhar')
+const Passport = require("../models/Passport")
 const verifyUserToken = require("../middleware/userToken")
 
-router.post('/vehicles', async (req, res) => {
-  try {
+router.post('/vehicles', verifyUserToken, async (req, res) => {
+  try { 
     const newVehicle = new Vehicle({
+      user: req.userId,
       reg_number: req.body.reg_number,
       chasis_number: req.body.chasis_number,
       name: req.body.name,
@@ -63,6 +65,11 @@ router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
     const user = req.userId;
     console.log(user);
     const { full_name, dob, gender, aadhaar_number } = req.body;
+    const existing = await frontAadhaar.findOne({user});
+    if(existing){
+      return res.status(400).json({ message: "Aadhaar already exists" });
+    }
+
     const existingAadhaar = await frontAadhaar.findOne({ aadhaar_number });
     if (existingAadhaar) {
       return res.status(400).json({ message: "Aadhaar number already exists" });
@@ -84,6 +91,35 @@ router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
+
+router.post('/passport',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    console.log(user);
+    const { name, surname, passportNumber, gender, placeOfBirth, dateOfBirth,placeOfIssue, dateOfIssue,expiryDate } = req.body;
+    const existing = await Passport.findOne({user});
+    if(existing){
+      return res.status(400).json({ message: "Passport already exists" });
+    }
+
+    const existingPassport = await Passport.findOne({ passportNumber });
+    if (existingPassport) {
+      return res.status(400).json({ message: "Passport number already exists" });
+    }
+
+    const newPassport = new Passport({
+      user, name, surname, passportNumber, gender, placeOfBirth, dateOfBirth, placeOfIssue, dateOfIssue, expiryDate
+    });
+
+    // Save to MongoDB
+    await newPassport.save();
+    res.status(201).json({ message: 'Passport created successfully', data: newPassport });
+  } catch (error) {
+    console.error("Error creating Passport: ", error);
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
 
 
 

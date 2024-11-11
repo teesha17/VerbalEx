@@ -5,7 +5,8 @@ import LandingPage from './Pages/Home/LandingPage';
 import PanCard from './Pages/Dashboard/PanCard';
 import OCRApp from './Pages/Dashboard/FileUpload';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import AadhaarOCR from './Pages/Dashboard/fRONTAdhar';
+import Passport from './Pages/Dashboard/Passport';
+import FrontAadhaar from './Pages/Dashboard/FrontAdhar';
 
 function AppRouter() {
   return (
@@ -15,7 +16,8 @@ function AppRouter() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/pancard" element={<PanCard />} />
       <Route path="/vehicle" element={<OCRApp />} />
-      <Route path="/adhar" element={<AadhaarOCR />} />
+      <Route path="/passport" element={<Passport />} />
+      <Route path="/adhar" element={<FrontAadhaar />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
