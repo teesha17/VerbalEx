@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
 import axios from "axios";
+import './AadhaarExtractor.css';
 
 const AadhaarExtractor = () => {
   const [image, setImage] = useState(null);
@@ -8,7 +9,7 @@ const AadhaarExtractor = () => {
   const [loading, setLoading] = useState(false);
 
   const handleImageUpload = (e) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
+    setImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleProcessImage = async () => {
@@ -76,6 +77,7 @@ const AadhaarExtractor = () => {
         }
       );
       alert(response.data.message);
+      window.location.href = "/";
     } catch (error) {
       console.error("Error submitting data:", error);
       alert("Failed to submit data");
@@ -83,22 +85,22 @@ const AadhaarExtractor = () => {
   };
 
   return (
-    <div>
-      <h1>Aadhaar Card Details Extractor</h1>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <img src={image}/>
-      <button onClick={handleProcessImage} disabled={loading}>
+    <div className="aadhaar-container">
+      <h1 className="aadhaar-header">Aadhaar Card Details Extractor</h1>
+      <input type="file" accept="image/*" onChange={handleImageUpload} className="aadhaar-file-input" />
+      {image && <img src={image} alt="Aadhaar Preview" className="aadhaar-image" />}
+      <button onClick={handleProcessImage} disabled={loading} className="aadhaar-extract-button">
         {loading ? "Processing..." : "Extract Details"}
       </button>
 
       {extractedData.full_name && (
-        <div>
-          <h3>Extracted Details:</h3>
+        <div className="aadhaar-details">
+          <h3 className="aadhaar-details-header">Extracted Details:</h3>
           <p><strong>Full Name:</strong> {extractedData.full_name}</p>
           <p><strong>Date of Birth:</strong> {extractedData.dob}</p>
           <p><strong>Gender:</strong> {extractedData.gender}</p>
           <p><strong>Aadhaar Number:</strong> {extractedData.aadhaar_number}</p>
-          <button onClick={handleSubmit}>Submit to Backend</button>
+          <button onClick={handleSubmit} className="aadhaar-submit-button">Submit to Backend</button>
         </div>
       )}
     </div>
