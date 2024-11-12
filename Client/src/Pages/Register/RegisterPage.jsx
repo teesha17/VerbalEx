@@ -21,9 +21,8 @@ const RegisterPage = () => {
                 password 
             });
             setMessage("Registration successful!");
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
-            // Extract and set error messages correctly
             const errorMessage = error.response?.data?.errors?.[0]?.msg || "Registration failed, please try again.";
             setMessage(errorMessage);
         }
