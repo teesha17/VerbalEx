@@ -10,16 +10,7 @@ import io
 
 
 def preprocess_to_processed(image_path):
-    """
-    Preprocesses an image to convert it into a high-contrast black and white format
-    for improved text extraction.
 
-    Args:
-        image_path (str): The path to the input image.
-
-    Returns:
-        numpy.ndarray: The preprocessed image in a black and white format.
-    """
     # Read the image
     image = cv2.imread(image_path)
 
@@ -54,15 +45,7 @@ def preprocess_to_processed(image_path):
 
 
 def extract_name(input_text):
-    """
-    Extracts the full name from the given text using a regular expression.
 
-    Args:
-        input_text (str): The text to extract the name from.
-
-    Returns:
-        str: The extracted full name, or an empty string if no name is found.
-    """
     name_regex = r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b"
     names = re.findall(name_regex, input_text)
     full_name = ""

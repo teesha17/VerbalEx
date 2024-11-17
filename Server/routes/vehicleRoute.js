@@ -81,12 +81,10 @@ router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
     if(existing){
       return res.status(400).json({ message: "Aadhaar already exists" });
     }
-
     const existingAadhaar = await frontAadhaar.findOne({ aadhaar_number });
     if (existingAadhaar) {
       return res.status(400).json({ message: "Aadhaar number already exists" });
     }
-
     const newAadhaar = new frontAadhaar({
       user,
       full_name,
@@ -94,8 +92,6 @@ router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
       gender,
       aadhaar_number,
     });
-
-    // Save to MongoDB
     await newAadhaar.save();
     res.status(201).json({ message: 'Aadhaar created successfully', data: newAadhaar });
   } catch (error) {
@@ -103,6 +99,44 @@ router.post('/frontaadhaar',verifyUserToken, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
+
+router.get('/getaadhaar',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    const customHeader = req.headers['access-token'];
+    if (!customHeader) {
+      res.status(500).send('Headers not provided!');
+    }
+    if (customHeader === process.env.accessToken) {
+      const adhaar = await frontAadhaar.find({user});
+      res.status(200).json(adhaar);
+    } else {
+      res.status(500).send('Invalid Header value!');
+    }
+  } catch (error) {
+    console.log('Error fetching adhaar:', error);
+    res.status(500).send('Server error');
+  }
+})
+router.get('/getpassport',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    const customHeader = req.headers['access-token'];
+    if (!customHeader) {
+      res.status(500).send('Headers not provided!');
+    }
+    if (customHeader === process.env.accessToken) {
+      const adhaar = await Passport.find({user});
+      res.status(200).json(adhaar);
+    } else {
+      res.status(500).send('Invalid Header value!');
+    }
+  } catch (error) {
+    console.log('Error fetching adhaar:', error);
+    res.status(500).send('Server error');
+  }
+})
+
 
 router.post('/passport',verifyUserToken, async (req, res) => {
   try {
@@ -113,17 +147,13 @@ router.post('/passport',verifyUserToken, async (req, res) => {
     if(existing){
       return res.status(400).json({ message: "Passport already exists" });
     }
-
     const existingPassport = await Passport.findOne({ passportNumber });
     if (existingPassport) {
       return res.status(400).json({ message: "Passport number already exists" });
     }
-
     const newPassport = new Passport({
       user, name, surname, passportNumber, gender, placeOfBirth, dateOfBirth, placeOfIssue, dateOfIssue, expiryDate
     });
-
-    // Save to MongoDB
     await newPassport.save();
     res.status(201).json({ message: 'Passport created successfully', data: newPassport });
   } catch (error) {
@@ -131,8 +161,5 @@ router.post('/passport',verifyUserToken, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-
-
-
 
 module.exports = router;

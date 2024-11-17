@@ -161,6 +161,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Passport.css'; // Import the CSS file
 
 const Passport = () => {
   const [image, setImage] = useState(null);
@@ -197,28 +198,27 @@ const Passport = () => {
 
   // Save extracted details to MongoDB
   const saveToDatabase = async () => {
-
     try {
-      console.log(details)
-      
-    const token = localStorage.getItem('token')
+      console.log(details);
+
+      const token = localStorage.getItem('token');
       const response = await axios.post("http://localhost:3000/api/passport",
         {
-        name: details.Name,
-        surname: details.Surname,
-        passportNumber: details['Passport Number'],
-        gender: details.Gender,
-        placeOfBirth: details['Place of Birth'],
-        dateOfBirth: details['Date of Birth'],
-        placeOfIssue: details['Place of Issue'],
-        dateOfIssue: details['Date of Issue'],
-        expiryDate: details['Expiry Date'],
+          name: details.Name,
+          surname: details.Surname,
+          passportNumber: details['Passport Number'],
+          gender: details.Gender,
+          placeOfBirth: details['Place of Birth'],
+          dateOfBirth: details['Date of Birth'],
+          placeOfIssue: details['Place of Issue'],
+          dateOfIssue: details['Date of Issue'],
+          expiryDate: details['Expiry Date'],
         },
         {
           headers: {
             'Content-Type': 'application/json',
-          'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
-          'userauthorize': token,
+            'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
+            'userauthorize': token,
           },
         }
       );
@@ -230,18 +230,18 @@ const Passport = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '500px', margin: 'auto', textAlign: 'center' }}>
-      <h2>Passport OCR Extraction</h2>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
+    <div className="passport-container">
+      <h2 className="header">Passport OCR Extraction</h2>
+      <input type="file" accept="image/*" onChange={handleImageUpload} className="file-input" />
       {image && (
-        <div style={{ marginTop: '20px' }}>
-          <img src={imageurl} alt="Uploaded Passport" style={{ width: '100%' }} />
-          <button onClick={extractDetails}>Extract Details</button>
+        <div className="image-preview">
+          <img src={imageurl} alt="Uploaded Passport" className="uploaded-image" />
+          <button onClick={extractDetails} className="action-btn">Extract Details</button>
         </div>
       )}
-      {loading && <p>Extracting details, please wait...</p>}
+      {loading && <p className="loading-text">Extracting details, please wait...</p>}
       {details && (
-        <div style={{ marginTop: '20px', textAlign: 'left' }}>
+        <div className="details-container">
           <h3>Extracted Passport Details:</h3>
           <p><strong>Name:</strong> {details.Name}</p>
           <p><strong>Surname:</strong> {details.Surname}</p>
@@ -252,7 +252,7 @@ const Passport = () => {
           <p><strong>Place of Issue:</strong> {details['Place of Issue']}</p>
           <p><strong>Date of Issue:</strong> {details['Date of Issue']}</p>
           <p><strong>Expiry Date:</strong> {details['Expiry Date']}</p>
-          <button onClick={saveToDatabase} style={{ marginTop: '10px' }}>Save to Database</button>
+          <button onClick={saveToDatabase} className="submit-btn">Save to Database</button>
         </div>
       )}
     </div>
@@ -260,3 +260,4 @@ const Passport = () => {
 };
 
 export default Passport;
+

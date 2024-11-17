@@ -1,0 +1,97 @@
+/* Main container for the page */
+.passport-container {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 30px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Header styles */
+  .header {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the file input */
+  .file-input {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Container for the uploaded image preview */
+  .image-preview {
+    margin-top: 20px;
+  }
+  
+  /* Image display */
+  .uploaded-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Button styles */
+  .action-btn, .submit-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-btn:hover, .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Disabled button style */
+  .action-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Loading text */
+  .loading-text {
+    color: #777;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  /* Styles for the extracted details container */
+  .details-container {
+    margin-top: 30px;
+    text-align: left;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style for extracted details */
+  .details-container p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  /* Styling for extracted data labels */
+  .details-container strong {
+    font-weight: bold;
+    color: #444;
+  }
+  

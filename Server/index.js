@@ -5,7 +5,7 @@ const app = express();
 const dbConnection = require('./dbConnection/dbConnection.js');
 const authRoutes = require("./routes/authRoutes");
 const vehicleRoutes = require('./routes/vehicleRoute.js')
-const verifyUserToken = require('./middleware/userToken.js')
+
 
 dotenv.config();
 dbConnection();

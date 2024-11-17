@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
 import axios from "axios";
+import './AadhaarExtractor.css'; // Import the CSS file
 
 const AadhaarExtractor = () => {
   const [image, setImage] = useState(null);
@@ -8,7 +9,7 @@ const AadhaarExtractor = () => {
   const [loading, setLoading] = useState(false);
 
   const handleImageUpload = (e) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
+    setImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleProcessImage = async () => {
@@ -61,7 +62,8 @@ const AadhaarExtractor = () => {
     const match = text.match(/\b\d{4}\s?\d{4}\s?\d{4}\b/);
     return match ? match[0].replace(/\s+/g, "") : "";
   };
-  const token = localStorage.getItem('token')
+
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async () => {
     try {
@@ -70,8 +72,8 @@ const AadhaarExtractor = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-          'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
-          'userauthorize': token,
+            'access-token': 'tcZALrHkfh0fSe5WQkCuTtHGJbvn4VI1',
+            'userauthorize': token,
           },
         }
       );
@@ -83,22 +85,22 @@ const AadhaarExtractor = () => {
   };
 
   return (
-    <div>
-      <h1>Aadhaar Card Details Extractor</h1>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <img src={image}/>
-      <button onClick={handleProcessImage} disabled={loading}>
+    <div className="aadhaar-container">
+      <h1 className="header">Aadhaar Card Details Extractor</h1>
+      <input type="file" accept="image/*" onChange={handleImageUpload} className="file-input" />
+      {image && <img src={image} alt="Uploaded Aadhaar" className="uploaded-image" />}
+      <button onClick={handleProcessImage} disabled={loading} className="action-btn">
         {loading ? "Processing..." : "Extract Details"}
       </button>
 
       {extractedData.full_name && (
-        <div>
+        <div className="details-container">
           <h3>Extracted Details:</h3>
           <p><strong>Full Name:</strong> {extractedData.full_name}</p>
           <p><strong>Date of Birth:</strong> {extractedData.dob}</p>
           <p><strong>Gender:</strong> {extractedData.gender}</p>
           <p><strong>Aadhaar Number:</strong> {extractedData.aadhaar_number}</p>
-          <button onClick={handleSubmit}>Submit to Backend</button>
+          <button onClick={handleSubmit} className="submit-btn">Submit to Backend</button>
         </div>
       )}
     </div>

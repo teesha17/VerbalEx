@@ -39,7 +39,6 @@ const OCRApp = () => {
         const details = parseDetails(text);
         setExtractedDetails(details);
         setLoading(false);
-        sendDetailsToBackend(details); // Send extracted details to backend
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -52,10 +51,10 @@ const OCRApp = () => {
       reg_number: text.match(/(?=.*\d)[A-Z0-9]{10}/)?.[0] || null,
       chasis_number: text.match(/[A-Z0-9]{17,18}/)?.[0] || null,
       name: text.match(/NAME\s*:?\s*([A-Z]+\s[A-Z]+)/)?.[1] || null,
-      swd: text.match(/NAME\s*:?\s*([A-Z]+)\s/)?.[1] || null,
+      swd: text.match(/S\/W\/D\s*:?\s*([A-Z]+)\s/)?.[1] || null,
       address: text.match(/Address:?\s*((?:.|\n)*?\d{6})/i)?.[1] || null,
       fuel_type: text.match(/Fuel(?:\s+Type)?\s*[\s:\.]\s*([A-Z/]+)\s/i)?.[1] || null,
-      vehicle_class: text.match(/(?:Veh.c.e\sClass|Veh\sCl)\s*[\s:]\s*([A-Z0-9/()-]+)\s([A-Z0-9/()-]+)/i)?.[0] || null,
+      vehicle_class: text.match(/(?:VHE.c.e\sClass|VHE\sCl)\s*[\s:]\s*([A-Z0-9/()-]+)\s([A-Z0-9/()-]+)/i)?.[0] || null,
       model: text.match(/Mode.\s*[\s:]\s*([A-Z0-9/+()-.]+(?:\s+[^\w\n]*[A-Z0-9/+()-.]+){0,3})\s/i)?.[1] || null,
       manufacturer: text.match(/MFR\s*:\s*([A-Z\s]+)/i)?.[1] || null,
       registration_date: text.match(/\b(\d{1,2}[/\-.](?:\d{2}|\d{4}|\w{3})[/\-.]\d{2,4})\b/g)?.[0] || null,
@@ -136,6 +135,10 @@ const OCRApp = () => {
             <li><strong>Expiry Date:</strong> {extractedDetails.expiry_date}</li>
             <li><strong>Tax Upto:</strong> {extractedDetails.tax_up_to}</li>
           </ul>
+          <button
+  onClick={() => sendDetailsToBackend(extractedDetails)} 
+  className="ocr-button"
+>send details to backend</button>
         </div>
       )}
 

@@ -7,6 +7,7 @@ import OCRApp from './Pages/Dashboard/FileUpload';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Passport from './Pages/Dashboard/Passport';
 import FrontAadhaar from './Pages/Dashboard/FrontAdhar';
+import Form from './Pages/Forms/Form';
 
 function AppRouter() {
   return (
@@ -19,6 +20,7 @@ function AppRouter() {
       <Route path="/passport" element={<Passport />} />
       <Route path="/adhar" element={<FrontAadhaar />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/form" element={<Form />} />
     </Routes>
   );
 }
