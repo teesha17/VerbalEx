@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
 import axios from "axios";
+import './AadhaarExtractor.css';
+
 
 const AadhaarExtractor = () => {
   const [image, setImage] = useState(null);
@@ -85,22 +87,24 @@ const AadhaarExtractor = () => {
   };
 
   return (
-    <div>
-      <h1>Aadhaar Card Details Extractor</h1>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <img src={image}/>
-      <button onClick={handleProcessImage} disabled={loading}>
+    <div className="aadhaar-container">
+      <h1 className="header">Aadhaar Card Details Extractor</h1>
+      <input type="file" accept="image/*" onChange={handleImageUpload} className="file-input" />
+      {image && <img src={image} alt="Uploaded Aadhaar" className="uploaded-image" />}
+      <button onClick={handleProcessImage} disabled={loading} className="action-btn">
+
         {loading ? "Processing..." : "Extract Details"}
       </button>
 
       {extractedData.full_name && (
-        <div>
+        <div className="details-container">
           <h3>Extracted Details:</h3>
+
           <p><strong>Full Name:</strong> {extractedData.full_name}</p>
           <p><strong>Date of Birth:</strong> {extractedData.dob}</p>
           <p><strong>Gender:</strong> {extractedData.gender}</p>
           <p><strong>Aadhaar Number:</strong> {extractedData.aadhaar_number}</p>
-          <button onClick={handleSubmit}>Submit to Backend</button>
+          <button onClick={handleSubmit} className="submit-btn">Submit to Backend</button>
         </div>
       )}
     </div>
