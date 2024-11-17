@@ -11,7 +11,7 @@ const LandingPage = () => {
   };
 
   const handleLogin = () => {
-    navigate("/login");
+    navigate("/aboutus");
   };
 
   useEffect(()=>{
@@ -22,23 +22,6 @@ const LandingPage = () => {
   })
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-blue-600">Verbalex</span>
-            </div>
-            <div className="flex items-center">
-              <button
-                onClick={handleSignup}
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
-              >
-                Sign up
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <div className="relative bg-white overflow-hidden">
@@ -65,7 +48,7 @@ const LandingPage = () => {
                       onClick={handleLogin}
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
                     >
-                      Login
+                      Learn More
                     </button>
                   </div>
                 </div>
@@ -180,8 +163,12 @@ const LandingPage = () => {
               ].map((feature) => (
                 <div key={feature.name} className="relative">
                   <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      {/* You can add icons here if needed */}
+                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md text-white">
+                    <img
+            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+            src="/features.svg"
+            alt="OCR illustration"
+          />
                     </div>
                     <p className="ml-16 text-lg leading-6 font-medium text-gray-900">
                       {feature.name}
@@ -281,151 +268,6 @@ const LandingPage = () => {
             </blockquote>
           </div>
         </div>
-      </div>
-      {/* Footer */}
-      <div>
-        <footer className="bg-gray-800">
-          <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-            <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-              <div className="space-y-8 xl:col-span-1">
-                <span className="text-2xl font-bold text-white">Verbalex</span>
-                <p className="text-gray-300 text-base">
-                  Advanced OCR solutions for your document processing needs.
-                </p>
-                <div className="flex space-x-6">
-                  {/* Add social media icons here if needed */}
-                </div>
-              </div>
-              <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-                <div className="md:grid md:grid-cols-2 md:gap-8">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">
-                      Solutions
-                    </h3>
-                    <ul className="mt-4 space-y-4">
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          OCR
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Document Classification
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Data Extraction
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="mt-12 md:mt-0">
-                    <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">
-                      Support
-                    </h3>
-                    <ul className="mt-4 space-y-4">
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Pricing
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Documentation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          API Reference
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="md:grid md:grid-cols-2 md:gap-8">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">
-                      Company
-                    </h3>
-                    <ul className="mt-4 space-y-4">
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          About
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Blog
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Careers
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="mt-12 md:mt-0">
-                    <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">
-                      Legal
-                    </h3>
-                    <ul className="mt-4 space-y-4">
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Privacy
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="text-base text-gray-400 hover:text-white"
-                        >
-                          Terms
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="mt-12 border-t border-gray-700 pt-8">
-              <p className="text-base text-gray-400 xl:text-center">
-                &copy; 2024 Verbalex, Inc. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );

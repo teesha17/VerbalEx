@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import './LoginPage.css'; // Make sure to import the CSS file
 
 const Login = () => {
@@ -40,6 +40,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)} 
                 />
                 <button className="submit-btn" type="submit">Login</button>
+                <Link to='/register' className='link'>Create an Account?</Link>
             </form>
         </div>
     );

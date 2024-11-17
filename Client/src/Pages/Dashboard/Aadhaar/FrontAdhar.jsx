@@ -3,10 +3,14 @@ import Tesseract from "tesseract.js";
 import axios from "axios";
 import './AadhaarExtractor.css';
 
-
 const AadhaarExtractor = () => {
   const [image, setImage] = useState(null);
-  const [extractedData, setExtractedData] = useState({});
+  const [extractedData, setExtractedData] = useState({
+    full_name: "",
+    dob: "",
+    gender: "",
+    aadhaar_number: ""
+  });
   const [loading, setLoading] = useState(false);
 
   const handleImageUpload = (e) => {
@@ -86,24 +90,72 @@ const AadhaarExtractor = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setExtractedData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="aadhaar-container">
       <h1 className="header">Aadhaar Card Details Extractor</h1>
       <input type="file" accept="image/*" onChange={handleImageUpload} className="file-input" />
-      {image && <img src={image} alt="Uploaded Aadhaar" className="uploaded-image" />}
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        {image && <img src={image} alt="Uploaded Aadhaar" className="uploaded-image" />}
+      </div>
       <button onClick={handleProcessImage} disabled={loading} className="action-btn">
-
         {loading ? "Processing..." : "Extract Details"}
       </button>
 
       {extractedData.full_name && (
         <div className="details-container">
           <h3>Extracted Details:</h3>
+          <label>
+            <strong>Full Name:</strong>
+            <input
+              type="text"
+              name="full_name"
+              value={extractedData.full_name}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </label>
 
-          <p><strong>Full Name:</strong> {extractedData.full_name}</p>
-          <p><strong>Date of Birth:</strong> {extractedData.dob}</p>
-          <p><strong>Gender:</strong> {extractedData.gender}</p>
-          <p><strong>Aadhaar Number:</strong> {extractedData.aadhaar_number}</p>
+          <label>
+            <strong>Date of Birth:</strong>
+            <input
+              type="text"
+              name="dob"
+              value={extractedData.dob}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </label>
+
+          <label>
+            <strong>Gender:</strong>
+            <input
+              type="text"
+              name="gender"
+              value={extractedData.gender}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </label>
+
+          <label>
+            <strong>Aadhaar Number:</strong>
+            <input
+              type="text"
+              name="aadhaar_number"
+              value={extractedData.aadhaar_number}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </label>
+
           <button onClick={handleSubmit} className="submit-btn">Submit to Backend</button>
         </div>
       )}

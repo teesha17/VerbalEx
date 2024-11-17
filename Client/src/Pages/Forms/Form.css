@@ -1,7 +1,7 @@
 /* Form container */
 .form-container {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -47,6 +47,7 @@
   .form-button {
     width: 100%;
     padding: 12px;
+    margin-bottom: 30px;
     font-size: 18px;
     color: #fff;
     background-color: #007bff;

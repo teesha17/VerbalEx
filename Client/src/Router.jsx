@@ -2,12 +2,14 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './Pages/Login/LoginPage';
 import RegisterPage from './Pages/Register/RegisterPage';
 import LandingPage from './Pages/Home/LandingPage';
-import PanCard from './Pages/Dashboard/PanCard';
-import OCRApp from './Pages/Dashboard/FileUpload';
+import PanCard from './Pages/Dashboard/Pancard/PanCard';
+import OCRApp from './Pages/Dashboard/Vehicle/FileUpload';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import Passport from './Pages/Dashboard/Passport';
-import FrontAadhaar from './Pages/Dashboard/FrontAdhar';
+import Passport from './Pages/Dashboard/Passport/Passport';
+import FrontAadhaar from './Pages/Dashboard/Aadhaar/FrontAdhar';
 import Form from './Pages/Forms/Form';
+import AboutUs from './Pages/Aboutus/AboutUs';
+import Contactus from './Pages/Contactus/Contactus';
 
 function AppRouter() {
   return (
@@ -21,6 +23,8 @@ function AppRouter() {
       <Route path="/adhar" element={<FrontAadhaar />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/form" element={<Form />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/contactus" element={<Contactus />} />
     </Routes>
   );
 }

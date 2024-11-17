@@ -3,7 +3,7 @@ const router = express.Router();
 const Vehicle = require('../models/vehicle'); 
 const PanCard = require('../models/pancard')
 const frontAadhaar = require('../models/FrontAdhar')
-const Passport = require("../models/Passport")
+const Passport = require('../models/Passport')
 const verifyUserToken = require("../middleware/userToken");
 
 
@@ -126,17 +126,54 @@ router.get('/getpassport',verifyUserToken, async (req, res) => {
       res.status(500).send('Headers not provided!');
     }
     if (customHeader === process.env.accessToken) {
-      const adhaar = await Passport.find({user});
-      res.status(200).json(adhaar);
+      const passport = await Passport.find({user});
+      res.status(200).json(passport);
     } else {
       res.status(500).send('Invalid Header value!');
     }
   } catch (error) {
-    console.log('Error fetching adhaar:', error);
+    console.log('Error fetching passport:', error);
     res.status(500).send('Server error');
   }
 })
 
+router.get('/getpan',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    const customHeader = req.headers['access-token'];
+    if (!customHeader) {
+      res.status(500).send('Headers not provided!');
+    }
+    if (customHeader === process.env.accessToken) {
+      const pancard = await PanCard.find({user});
+      res.status(200).json(pancard);
+    } else {
+      res.status(500).send('Invalid Header value!');
+    }
+  } catch (error) {
+    console.log('Error fetching pancard:', error);
+    res.status(500).send('Server error');
+  }
+})
+
+router.get('/getvehicle',verifyUserToken, async (req, res) => {
+  try {
+    const user = req.userId;
+    const customHeader = req.headers['access-token'];
+    if (!customHeader) {
+      res.status(500).send('Headers not provided!');
+    }
+    if (customHeader === process.env.accessToken) {
+      const vehicle = await Vehicle.find({user});
+      res.status(200).json(vehicle);
+    } else {
+      res.status(500).send('Invalid Header value!');
+    }
+  } catch (error) {
+    console.log('Error fetching vehicle:', error);
+    res.status(500).send('Server error');
+  }
+})
 
 router.post('/passport',verifyUserToken, async (req, res) => {
   try {
