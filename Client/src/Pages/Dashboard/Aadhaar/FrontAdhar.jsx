@@ -72,7 +72,7 @@ const AadhaarExtractor = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/frontaadhaar",
+      const response = await axios.post("https://verbalex.onrender.com/api/frontaadhaar",
         extractedData,
         {
           headers: {

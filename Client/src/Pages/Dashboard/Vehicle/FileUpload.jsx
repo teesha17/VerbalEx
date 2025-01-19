@@ -67,7 +67,7 @@ const OCRApp = () => {
   const sendDetailsToBackend = async (details) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/vehicles", {
+      const response = await fetch("https://verbalex.onrender.com/api/vehicles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

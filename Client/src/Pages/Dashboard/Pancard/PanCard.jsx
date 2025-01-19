@@ -49,7 +49,7 @@ const PanCard = () => {
 
   const uploadData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/addpan', {
+      const response = await fetch('https://verbalex.onrender.com/api/addpan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

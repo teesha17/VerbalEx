@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:3000/api/auth/login', { emailOrUsername, password });
+            const res = await axios.post('https://verbalex.onrender.com/api/auth/login', { emailOrUsername, password });
             setMessage("Login successful!");
             localStorage.setItem('token', res.data.token);
             navigate('/dashboard')
