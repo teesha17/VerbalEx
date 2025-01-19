@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
-import "./FileUpload.css";  // Import the CSS file
+import "./FileUpload.css";  
 
 const OCRApp = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [extractedDetails, setExtractedDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [saveStatus, setSaveStatus] = useState(null); // Track the save status
+  const [saveStatus, setSaveStatus] = useState(null); 
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
       setExtractedDetails({});
-      setSaveStatus(null); // Reset save status when a new image is uploaded
+      setSaveStatus(null); 
     }
   };
 
@@ -26,6 +26,7 @@ const OCRApp = () => {
 
     Tesseract.recognize(
       selectedImage,
+    
       "eng",
       {
         logger: (m) => {

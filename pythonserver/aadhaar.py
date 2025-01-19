@@ -8,41 +8,22 @@ import imghdr
 import numpy as np
 import io
 
-
 def preprocess_to_processed(image_path):
-
-    # Read the image
     image = cv2.imread(image_path)
-
-    # Convert the image to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     gray = clahe.apply(gray)
-
-    # Apply GaussianBlur to smooth the image and reduce noise
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-
-    # Apply adaptive thresholding to convert the image to binary (black and white)
     binary = cv2.adaptiveThreshold(
         blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 15, 10
     )
-
-    # Invert the colors of the image
     inverted_image = cv2.bitwise_not(binary)
-
-    # Apply dilation and erosion to make the text bolder and cleaner
     kernel = np.ones((2, 2), np.uint8)
     dilated = cv2.dilate(inverted_image, kernel, iterations=1)
     eroded = cv2.erode(dilated, kernel, iterations=1)
-
-    # Sharpen the image using a kernel
     sharpen_kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
     sharpened_image = cv2.filter2D(eroded, -1, sharpen_kernel)
-
     return sharpened_image
-
 
 def extract_name(input_text):
 
