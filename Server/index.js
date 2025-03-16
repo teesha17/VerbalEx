@@ -9,6 +9,7 @@ const vehicleRoutes = require('./routes/vehicleRoute.js')
 //comment 
 //comment2
 //comment3
+//comment4
 
 dotenv.config();
 dbConnection();
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api",vehicleRoutes);
 
-app.listen(process.env.PORT, (err) => {
+app.listen(process.env.PORT||5000, (err) => {
     if (err) {
         console.log("Error while starting the server!");
     } else {
