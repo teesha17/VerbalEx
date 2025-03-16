@@ -1,28 +1,33 @@
-name: Send Email on Code Change
+name: Send Email on Commit
 
 on:
   push:
     branches:
-      - main  # or any branch you want to track
+      - main  # or 'master' or any branch you want
 
 jobs:
   send-email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # or your desired version
+          node-version: '16'  # or any version you prefer
 
-      - name: Install dependencies
+      - name: Install nodemailer
         run: npm install nodemailer
 
+      - name: Get Latest Commit Message
+        id: get_commit
+        run: echo "commit_message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
+
       - name: Send Email
-        run: node sendMail.js
+        run: node sendMail.js "$commit_message"
         env:
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          commit_message: ${{ env.commit_message }}
