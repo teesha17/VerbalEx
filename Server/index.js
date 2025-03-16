@@ -19,10 +19,11 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api",vehicleRoutes);
 
-app.listen(process.env.PORT||5001, (err) => {
+app.listen(process.env.PORT||5000, (err) => {
     if (err) {
         console.log("Error while starting the server!");
     } else {
         console.log(`Server is listening at port number: ${process.env.PORT}`);
     }
 });
+
