@@ -9,7 +9,6 @@ const vehicleRoutes = require('./routes/vehicleRoute.js')
 //comment 
 //comment2
 //comment3
-//comment4
 
 dotenv.config();
 dbConnection();
